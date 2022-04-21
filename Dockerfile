@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 LABEL maintainer="UNAVCO"
 
 RUN apt-get update && \
-    apt-get install -y gfortran python3-pip unzip wget && \
+    apt-get install -y gfortran python3-pip unzip wget vim && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /etc/gnssrefl/exe /etc/gnssrefl/orbits /etc/gnssrefl/refl_code/Files
