@@ -7,15 +7,24 @@ RUN apt-get update && \
 
 RUN mkdir -p /etc/gnssrefl/exe /etc/gnssrefl/orbits /etc/gnssrefl/refl_code/Files
 
-RUN cd /tmp && \
-    wget https://www.unavco.org/software/data-processing/teqc/development/teqc_CentOSLx86_64d.zip \
-    && unzip teqc_CentOSLx86_64d.zip -d /etc/gnssrefl/exe \
-    && rm teqc*
+#RUN cd /tmp && \
+#    wget https://www.unavco.org/software/data-processing/teqc/development/teqc_CentOSLx86_64d.zip \
+#    && unzip teqc_CentOSLx86_64d.zip -d /etc/gnssrefl/exe \
+#    && rm teqc*
+
+#RUN cd /tmp && \
+#    wget https://terras.gsi.go.jp/ja/crx2rnx/RNXCMP_4.1.0_Linux_x86_64bit.tar.gz \
+#    && tar -xf RNXCMP_4.1.0_Linux_x86_64bit.tar.gz \
+#    && cp RNXCMP_4.1.0_Linux_x86_64bit/bin/CRX2RNX /etc/gnssrefl/exe/ \
+#    && rm -rf RNXCMP*
 
 RUN cd /tmp && \
-    wget https://terras.gsi.go.jp/ja/crx2rnx/RNXCMP_4.1.0_Linux_x86_64bit.tar.gz \
-    && tar -xf RNXCMP_4.1.0_Linux_x86_64bit.tar.gz \
-    && cp RNXCMP_4.1.0_Linux_x86_64bit/bin/CRX2RNX /etc/gnssrefl/exe/ \
+    wget https://terras.gsi.go.jp/ja/crx2rnx/RNXCMP_4.1.0_src.tar.gz \
+    && tar -xf RNXCMP_4.1.0_src.tar.gz \
+    #&& cd RNXCMP_4.1.0_src/source/ \
+    #&& gcc -ansi -O2 crx2rnx.c -o CRX2RNX
+    && gcc -ansi -O2 RNXCMP_4.1.0_src/source/crx2rnx.c -o CRX2RNX \
+    && cp CRX2RNX /etc/gnssrefl/exe/ \
     && rm -rf RNXCMP*
 
 COPY vendor/gfzrnx_1.15-8044_lx64 /etc/gnssrefl/exe/gfzrnx
