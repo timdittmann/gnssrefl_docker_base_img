@@ -1,8 +1,10 @@
 FROM ubuntu:20.04
 LABEL maintainer="UNAVCO"
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y gfortran python3-pip unzip wget vim && \
+    apt-get install -y python3-dev python3-numpy-dev python3-setuptools cython3 python3-jinja2 python3-pytest-astropy && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /etc/gnssrefl/exe /etc/gnssrefl/orbits /etc/gnssrefl/refl_code/Files
@@ -21,8 +23,6 @@ RUN mkdir -p /etc/gnssrefl/exe /etc/gnssrefl/orbits /etc/gnssrefl/refl_code/File
 RUN cd /tmp && \
     wget https://terras.gsi.go.jp/ja/crx2rnx/RNXCMP_4.1.0_src.tar.gz \
     && tar -xf RNXCMP_4.1.0_src.tar.gz \
-    #&& cd RNXCMP_4.1.0_src/source/ \
-    #&& gcc -ansi -O2 crx2rnx.c -o CRX2RNX
     && gcc -ansi -O2 RNXCMP_4.1.0_src/source/crx2rnx.c -o CRX2RNX \
     && cp CRX2RNX /etc/gnssrefl/exe/ \
     && rm -rf RNXCMP*
