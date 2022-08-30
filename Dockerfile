@@ -10,13 +10,15 @@ RUN apt-get update && \
 
 RUN mkdir -p /etc/gnssrefl/exe /etc/gnssrefl/orbits /etc/gnssrefl/refl_code/Files
 
-COPY vendor/gfzrnx_1.15-8044_lx64 /etc/gnssrefl/exe/
 COPY vendor/gfzrnx_2.0-8219_armlx64 /etc/gnssrefl/exe/
+COPY vendor/gfzrnx_1.15-8044_lx64 /etc/gnssrefl/exe/
 
 RUN if [ "$TARGETARCH" = "arm64" ] ; then \
   cp /etc/gnssrefl/exe/gfzrnx_2.0-8219_armlx64 /etc/gnssrefl/exe/gfzrnx; else \
   cp /etc/gnssrefl/exe/gfzrnx_1.15-8044_lx64 /etc/gnssrefl/exe/gfzrnx; \
   fi
+
+RUN chmod +x /etc/gnssrefl/exe/gfzrnx
 
 RUN cd /tmp && \
     wget https://terras.gsi.go.jp/ja/crx2rnx/RNXCMP_4.1.0_src.tar.gz \
