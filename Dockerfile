@@ -5,6 +5,7 @@ ARG TARGETARCH
 
 RUN apt-get update && \
     apt-get install -y gfortran python3-pip unzip wget vim && \
+    # build astropy from source: https://docs.astropy.org/en/stable/install.html#building-from-source
     apt-get install -y python3-dev python3-numpy-dev python3-setuptools cython3 python3-jinja2 python3-pytest-astropy && \
     rm -rf /var/lib/apt/lists/*
 
@@ -35,3 +36,4 @@ ENV REFL_CODE=/etc/gnssrefl/refl_code
 ENV PATH="/etc/gnssrefl/exe:$PATH"
 
 RUN pip install numpy --upgrade --ignore-installed
+RUN pip install pip setuptools wheel astropy --upgrade
