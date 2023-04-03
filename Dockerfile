@@ -1,5 +1,6 @@
-FROM ubuntu:20.04
-LABEL maintainer="UNAVCO"
+#FROM ubuntu:20.04
+FROM python:3.8-slim-buster
+LABEL maintainer="EARTHSCOPE"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TARGETARCH
 
